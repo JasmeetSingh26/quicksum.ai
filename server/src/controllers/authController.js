@@ -23,7 +23,6 @@ const login = async (req, res) => {
       secure: true,
       sameSite: "None",
       maxAge: 60 * 60 * 1000,
-      domain: "doc-summarizer-fullstack.onrender.com",
     });
 
     return res.json({ message: "Login successful" });
@@ -72,7 +71,6 @@ const logout = (req, res) => {
     secure: true,
     sameSite: "None",
     path: "/",
-    domain: "doc-summarizer-fullstack.onrender.com",
   });
   return res.json({ message: "Logged out successfully" });
 };
