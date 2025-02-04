@@ -17,11 +17,17 @@ const login = async (req, res) => {
     }
 
     const token = generateToken(user.id);
+    // console.log(token);
+    // console.log("------------------");
 
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "None",
+      secure: true, // true in production
+      sameSite: "None", // needed if your frontend and backend are on different domains; adjust if they share the same domain
       maxAge: 60 * 60 * 1000,
+      // Optionally, set the domain if needed:
+      // domain: ".yourdomain.com",
+      path: "/",
     });
 
     return res.json({ message: "Login successful" });
@@ -67,7 +73,11 @@ const register = async (req, res) => {
 const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    sameSite: "None",
+    secure: true, // true in production
+    sameSite: "None", // needed if your frontend and backend are on different domains; adjust if they share the same domain
+    maxAge: 60 * 60 * 1000,
+    // Optionally, set the domain if needed:
+    // domain: ".yourdomain.com",
     path: "/",
   });
   return res.json({ message: "Logged out successfully" });

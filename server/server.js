@@ -9,7 +9,12 @@ dotenv.config();
 const app = express();
 
 // ✅ Enable CORS for all requests
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // ✅ Change this to your frontend's URL
+    credentials: true, // ✅ Allow cookies and authentication headers
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser()); // ✅ Enable parsing of cookies

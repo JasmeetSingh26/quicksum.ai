@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await api.post("/auth/login", { email, password }); // ✅ Fixed path
+      // console.log(response.headers);
       await checkAuth(); // ✅ Added await
       toast.success("Logged in successfully");
       return response.data;
