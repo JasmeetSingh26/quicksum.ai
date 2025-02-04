@@ -11,7 +11,7 @@ const app = express();
 // ✅ Enable CORS for all requests
 app.use(
   cors({
-    origin: "https://quicksum-ai-six.vercel.app/", // ✅ Change this to your frontend's URL
+    origin: "https://quicksum-ai-six.vercel.app", // ✅ Change this to your frontend's URL
     credentials: true, // ✅ Allow cookies and authentication headers
   })
 );
