@@ -1,40 +1,21 @@
 const express = require("express");
 const mainRouter = require("./src/routes/index");
-const app = express();
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
-require("dotenv").config();
+const cookieParser = require("cookie-parser"); // ✅ Import cookie-parser
+const dotenv = require("dotenv");
 
-app.use(cookieParser());
+dotenv.config();
+
+const app = express();
+
+// ✅ Enable CORS for all requests
+app.use(cors());
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
-);
+app.use(cookieParser()); // ✅ Enable parsing of cookies
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,PUT,POST,DELETE,UPDATE,OPTIONS"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
-  );
-  next();
-});
-
-app.use(morgan("dev"));
-
-app.options("/keep-me-alive", cors());
-app.get("/keep-me-alive", cors(), (req, res) => {
-  res.status(200).send("I am alive");
+app.get("/keep-me-alive", (req, res) => {
+  res.status(200).send("I am alive yo");
 });
 
 app.use("/api/v1", mainRouter);
